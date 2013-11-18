@@ -28,6 +28,7 @@ namespace ProBendingBattle
         bool keyboard2;
         bool leftTeam;
         bool genetic;
+        bool direct;
          
         List<Input> inputs;
         List<MenuItem> menuItems;
@@ -56,7 +57,7 @@ namespace ProBendingBattle
         //AINode seed2 = new AINode(.5820699774,1,.4579,77.6,154.14,.44755,54.1416,.7077037,4,Attack.AIR,Attack.AIR,Attack.AIR, true,100,70);
         //AINode seed = new AINode(.262824,1,.365328,117.7985,3.751075,.550444,111.567,.382055,3,1,1,1,true,111,102,1);
         //AINode seed = new AINode(.846, 1, .0357, 89.9, 20.16, .06933, 104.6, .395, 0, 1, 1, 1, false, 100, 70, 5);
-        AINode seed = new AINode(.846, 1, .0357, 89.9, 20.16, .06933, 104.6, .395, 0, Attack.GRASS, Attack.FIRE, Attack.WATER, false, 100, 70,5,50);
+        AINode seed = new AINode();//.846, 1, .0357, 89.9, 20.16, .06933, 104.6, .395, 0, Attack.GRASS, Attack.FIRE, Attack.WATER, false, 100, 70,5,50);
         AINode seed2;
 
         public Game1(bool keyboard)
@@ -115,7 +116,8 @@ namespace ProBendingBattle
             menuItems.Add(new MenuItem("Quit", new Vector2(300, 300), Color.White, -1));
             menuItems.Add(new MenuItem("Set Left AI", new Vector2(350, 350), Color.Red, 7));
             menuItems.Add(new MenuItem("Set Right AI", new Vector2(400, 400), Color.Blue, 8));
-            menuItems.Add(new MenuItem("Genetic...", new Vector2(450, 450), Color.Firebrick, 50));
+            menuItems.Add(new MenuItem("Genetic", new Vector2(450, 450), Color.Firebrick, 50));
+            menuItems.Add(new MenuItem("Direct", new Vector2(500, 500), Color.Firebrick, 77));
 
             aisTypes.Add(new MenuItem("Random Targeting", new Vector2(100, 100), Color.White, 100));
             aisTypes.Add(new MenuItem("Distance Targeting", new Vector2(100, 150), Color.Red, 101));
@@ -320,12 +322,16 @@ namespace ProBendingBattle
                         if (rightAI != null)
                             rightAI.update(!(redScore == 3));
                         //LoadContent();
+                        if (blueScore == 3)
+                        {
+                            seed = seed2;
+                        }
                         menuState = 1;
                     }
                 }
                 else if (menuState == 1)
                 {
-                    if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Enter) || genetic)
+                    if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Enter) || genetic || direct)
                     {
                         LoadContent();
                         menuState = 2;
@@ -338,6 +344,12 @@ namespace ProBendingBattle
                     menuInput.run();
                     if (genetic)
                         menuState = 51;
+                    if (direct)
+                    {
+                        menuState = 6;
+                        LoadContent();
+                        
+                    }
                     if (menuInput.getAction() != 3)
                     {
                         menuChoice -= menuInput.getAction();
@@ -505,6 +517,11 @@ namespace ProBendingBattle
 
                     LoadContent();
                     menuState = 0;
+                }
+                else if (menuState == 77)
+                {
+                    direct = true;
+                    menuState = 2;
                 }
 
                 else if (menuState == 99)
