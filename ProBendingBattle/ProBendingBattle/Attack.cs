@@ -17,9 +17,13 @@ namespace ProBendingBattle
 
 
         public static int AIR = 0;
-        public static int EARTH = 1;
+        public static int GRASS = 1;
         public static int WATER = 2;
         public static int FIRE = 3;
+        public static int EARTH = 4;
+        public static int ICE = 5;
+        public static int LIGHTNING = 6;
+
         public static int radius = 5;
         public static int life = 75;
         public static float scale = 1f;
@@ -93,7 +97,7 @@ namespace ProBendingBattle
         {
             if (t == Attack.AIR)
                 return Color.White;
-            if (t == Attack.EARTH)
+            if (t == Attack.GRASS)
                 return Color.DarkGreen;
             if (t == Attack.FIRE)
                 return Color.Red;
@@ -106,12 +110,18 @@ namespace ProBendingBattle
         {
             if (type == Attack.AIR)
                 return Color.White;
-            if (type == Attack.EARTH)
+            if (type == Attack.GRASS)
                 return new Color(0,250,0);
             if (type == Attack.FIRE)
                 return Color.Orange;
             if (type == Attack.WATER)
                 return Color.Turquoise;
+            if (type == Attack.EARTH)
+                return Color.DarkGreen;
+            if (type == Attack.LIGHTNING)
+                return Color.Yellow;
+            if (type == Attack.ICE)
+                return Color.LightBlue;
             return Color.Black;
         }
         public bool contains(Vector2 point)

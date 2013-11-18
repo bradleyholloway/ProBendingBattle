@@ -36,6 +36,7 @@ namespace ProBendingBattle
         private int secondType;
         private int thirdType;
         private int strategy;
+        private int secondTypePercent;
 
         public AINode()
         {
@@ -61,8 +62,9 @@ namespace ProBendingBattle
             block = r.Next(0, 2) == 1;
             blockRadius = r.Next(60, 200);
             blockNodes = r.Next(0, 5);
+            secondTypePercent = r.Next(0, 101);
         }
-        public AINode(double initV, double dodgeAccel, double randomAccel, double reactionD, double avoidD, double avoidA, double cornerD, double cornerA, int strategy, int fType, int sType, int tType, bool block, int blockFrequency, double blockRadius, int blockNodes)
+        public AINode(double initV, double dodgeAccel, double randomAccel, double reactionD, double avoidD, double avoidA, double cornerD, double cornerA, int strategy, int fType, int sType, int tType, bool block, int blockFrequency, double blockRadius, int blockNodes, int secondPercent)
         {
             initVelocity = initV;
             dodgeAcceleration = dodgeAccel;
@@ -84,6 +86,7 @@ namespace ProBendingBattle
             this.blockFrequency = blockFrequency;
             this.blockRadius = blockRadius;
             this.blockNodes = blockNodes;
+            this.secondTypePercent = secondPercent;
         }
         public AINode(AINode p1, AINode p2, int mutation)
         {
@@ -105,9 +108,10 @@ namespace ProBendingBattle
             this.blockFrequency = (r.Next(2) == 0) ? p1.blockFrequency : p2.blockFrequency;
             this.blockRadius = (r.Next(2) == 0) ? p1.blockRadius : p2.blockRadius;
             this.blockNodes = (r.Next(2) == 0) ? p1.blockNodes : p2.blockNodes;
+            this.secondTypePercent = (r.Next(2) == 0) ? p1.secondTypePercent : p2.secondTypePercent;
             //if (r.Next(mutation) == 0)
             //{
-                int attribute = r.Next(0, 16);
+                int attribute = r.Next(0, 17);
                 if (attribute == 0)
                 {
                     initVelocity = Math.Abs(initVelocity + r.NextDouble() * 2 - 1);
@@ -172,6 +176,10 @@ namespace ProBendingBattle
                 {
                     blockNodes = 1 + Math.Abs(blockNodes - 1 + r.Next(-3,3));
                 }
+                if (attribute == 16)
+                {
+                    secondTypePercent = Math.Abs(secondTypePercent + r.Next(-50, 51));
+                }
             //}
 
             if (dodgeAcceleration > 1)
@@ -186,6 +194,8 @@ namespace ProBendingBattle
                 blockFrequency = 10;
             if (blockNodes > 10)
                 blockNodes = 10;
+            if (secondTypePercent > 100)
+                secondTypePercent = 100;
 
             dodgeVelocity = Math.Min(1.5 - dodgeAcceleration, 1);
             randomVelocity = Math.Min(1.5 - randomAcceleration, 1);
@@ -318,6 +328,10 @@ namespace ProBendingBattle
         public int getBlockNodes()
         {
             return blockNodes;
+        }
+        public int getSecondTypePercent()
+        {
+            return secondTypePercent;
         }
     }
 }

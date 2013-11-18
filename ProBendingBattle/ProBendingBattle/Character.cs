@@ -268,7 +268,7 @@ namespace ProBendingBattle
             if (fireDelay == 0)
             {
                 fireDelay = maxFireDelay;
-                return new Attack(location, initialVelocity, acceleration, type);
+                return new Attack(location, initialVelocity, acceleration, type + ((random.Next(0,101)>aiNode.getSecondTypePercent()) ? 3 : 0));
             }
             return null;
         }
@@ -349,37 +349,31 @@ namespace ProBendingBattle
             if (type == Attack.AIR)
                 return 1;
 
-            if (typeHost == Attack.EARTH)
+            if (typeHost == Attack.GRASS)
             {
-                if (type == Attack.AIR)
+                if (type == Attack.GRASS || type == Attack.EARTH)
                     return 2;
-                if (type == Attack.EARTH)
-                    return 2;
-                if (type == Attack.FIRE)
+                if (type == Attack.FIRE || type == Attack.ICE)
                     return 3;
-                if (type == Attack.WATER)
+                if (type == Attack.WATER || type == Attack.LIGHTNING)
                     return 1;
             }
             if (typeHost == Attack.FIRE)
             {
-                if (type == Attack.AIR)
-                    return 2;
-                if (type == Attack.EARTH)
+                if (type == Attack.GRASS || type == Attack.ICE)
                     return 1;
-                if (type == Attack.FIRE)
+                if (type == Attack.FIRE || type == Attack.LIGHTNING)
                     return 2;
-                if (type == Attack.WATER)
+                if (type == Attack.WATER || type == Attack.EARTH)
                     return 3;
             }
             if (typeHost == Attack.WATER)
             {
-                if (type == Attack.AIR)
-                    return 2;
-                if (type == Attack.EARTH)
+                if (type == Attack.GRASS || type == Attack.LIGHTNING)
                     return 3;
-                if (type == Attack.FIRE)
+                if (type == Attack.FIRE || type == Attack.EARTH)
                     return 1;
-                if (type == Attack.WATER)
+                if (type == Attack.WATER || type == Attack.ICE)
                     return 2;
             }
             return 0;

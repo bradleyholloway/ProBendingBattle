@@ -56,7 +56,7 @@ namespace ProBendingBattle
         //AINode seed2 = new AINode(.5820699774,1,.4579,77.6,154.14,.44755,54.1416,.7077037,4,Attack.AIR,Attack.AIR,Attack.AIR, true,100,70);
         //AINode seed = new AINode(.262824,1,.365328,117.7985,3.751075,.550444,111.567,.382055,3,1,1,1,true,111,102,1);
         //AINode seed = new AINode(.846, 1, .0357, 89.9, 20.16, .06933, 104.6, .395, 0, 1, 1, 1, false, 100, 70, 5);
-        AINode seed = new AINode(.846, 1, .0357, 89.9, 20.16, .06933, 104.6, .395, 0, Attack.EARTH, Attack.FIRE, Attack.WATER, false, 100, 70,5);
+        AINode seed = new AINode(.846, 1, .0357, 89.9, 20.16, .06933, 104.6, .395, 0, Attack.GRASS, Attack.FIRE, Attack.WATER, false, 100, 70,5,50);
         AINode seed2;
 
         public Game1(bool keyboard)
